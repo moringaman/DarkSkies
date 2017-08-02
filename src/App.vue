@@ -7,7 +7,7 @@
    <!-- Right Panel -->
     <f7-panel right cover layout="dark">
       <f7-view id="right-panel-view" navbar-through :dynamic-navbar="true">
-        <f7-navbar v-if="$theme.ios" title="Right Panel" sliding></f7-navbar>
+        <f7-navbar v-if="$theme.ios" title="Menu" sliding></f7-navbar>
         <f7-pages>
           <f7-page>
             <f7-navbar v-if="$theme.material" title="Right Panel" sliding></f7-navbar>
@@ -35,7 +35,7 @@
         <!-- iOS Theme Navbar -->
         <f7-navbar v-if="$theme.ios">
            <f7-nav-left>
-            <f7-link icon="icon-person-filled" open-panel="left">Login</f7-link>
+            <a :href="/form/" link-view="#main-view" link-close-panel><i class="f7-icons" >person</i></a>
           </f7-nav-left>
           <f7-nav-center sliding>DarkSkies 7</f7-nav-center>
           <f7-nav-right>
@@ -56,10 +56,10 @@
               </f7-nav-right>
             </f7-navbar>
             <!-- Page Content -->
-            <f7-block-title>UK Chemtrail Map</f7-block-title>
+           <!-- <f7-block-title>UK Chemtrail Map</f7-block-title>
             <f7-content-block><p>Real time chemtrail recording from the grass roots.
-               Take a picture of the chemtrails above your location for all to see where 'they' are spraying today </p></f7-content-block>
-            <f7-block inner id="map-container">
+               Take a picture of the chemtrails above your location for all to see where 'they' are spraying today </p></f7-content-block> -->
+            <f7-block id="map-container">
               <div v-if="!cordova" class="alert">
       There might be an error with your installation. Check that <strong>Vue.cordova</strong> is available
     </div>
@@ -69,15 +69,10 @@
       <br />
       Check the <a href="https://github.com/kartsims/vue-cordova#troubleshooting">Troubleshooting section</a> of vue-cordova's README.
     </div>
-    
-              <gmap-map
-               :center="{lat:53, lng:-1.4}"
-                :zoom="6"
-                map-type-id="terrain"
-                style="width: 100%; height: 400px; z-index: 0">
-              </gmap-map>
+         <app-map></app-map>
             </f7-block>
-            <f7-block-title>Navigation</f7-block-title>
+            <f7-block-title> <f7-button fill open-login-screen="#login-screen" v-if="!loggedIn">LOGIN</f7-button><br>
+            <f7-button @click="takePicture" fill><i class="f7-icons .size25">camera_fill</i></f7-button></f7-block-title>
             <f7-list>
               <f7-list-item link="/about/" title="About DarkSkies 7"></f7-list-item>
               <f7-list-item link="/form/" title="Form"></f7-list-item>
@@ -158,16 +153,49 @@
 
 <script>
 import Vue from 'vue'
+import Map from './components/map.vue'
 
 export default {
+  components: {
+    appMap: Map
+  },
   methods: {
     pluginEnabled: function (pluginName) {
       return this.cordova.plugins.indexOf(pluginName) !== -1
+    },
+    takePicture: function () {
+      if (!Vue.cordova.camera) {
+        window.alert('Vue.cordova.camera not found !')
+        return
+      }
+      Vue.cordova.camera.getPicture((imageURI) => {
+        window.alert('Photo URI : ' + imageURI + '' + this.getlocation())
+      }, (message) => {
+        window.alert('FAILED : ' + message)
+      }, {
+        quality: 50,
+        destinationType: Vue.cordova.camera.DestinationType.FILE_URI
+      })
+    },
+    getlocation: function () {
+      if (!Vue.cordova.geolocation) {
+        window.alert('Vue.cordova.geolocation not found !')
+        return
+      }
+      Vue.cordova.geolocation.getCurrentPosition((position) => {
+        window.alert('Current position : ' + position.coords.latitude + ',' + position.coords.longitude)
+      }, (error) => {
+        window.alert('FAILED Error #' + error.code + ' ' + error.message)
+      }, {
+        timeout: 1000,
+        enableHighAccuracy: true
+      })
     }
   },
   data: function () {
     return {
       cordova: Vue.cordova,
+      loggedIn: true,
       plugins: {
         'cordova-plugin-camera': function () {
           if (!Vue.cordova.camera) {
@@ -255,7 +283,7 @@ body {
 
 #home .content-block {
   margin: 0px 0px;
-  padding: 10px 0px;
+  padding: 0px 0px;
 }
 
 #home .content-block-inner {

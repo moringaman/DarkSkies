@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App'
+import { store } from './store'
 
 // GoogleMaps
 
@@ -11,6 +12,12 @@ import Framework7 from 'framework7'
 // Import F7 Vue Plugin
 import Framework7Vue from 'framework7-vue'
 
+// Import Framework7 icon fonts
+
+import Framework7Icons from 'framework7-icons/css/framework7-icons.css'
+
+// './css/framework7-icons.css'
+
 // Import F7 iOS Theme Styles
 import Framework7Theme from 'framework7/dist/css/framework7.ios.min.css'
 import Framework7ThemeColors from 'framework7/dist/css/framework7.ios.colors.min.css'
@@ -18,7 +25,6 @@ import Framework7ThemeColors from 'framework7/dist/css/framework7.ios.colors.min
 import Framework7Theme from 'framework7/dist/css/framework7.material.min.css'
 import Framework7ThemeColors from 'framework7/dist/css/framework7.material.colors.min.css'
 */
-
 // Import App Custom Styles
 // import AppStyles from './css/app.css'
 
@@ -29,6 +35,8 @@ Vue.use(Framework7Vue)
 Vue.use(Framework7)
 Vue.use(Framework7Theme)
 Vue.use(Framework7ThemeColors)
+Vue.use(Framework7Icons)
+Vue.use(store)
 
 import VueCordova from 'vue-cordova'
 Vue.use(VueCordova, {
@@ -37,7 +45,7 @@ Vue.use(VueCordova, {
 
 Vue.use(VueGoogleMaps, {
   load: {
-    key: 'AIzaSyBvWE_sIwKbWkiuJQOf8gSk9qzpO96fhfY',
+    key: 'AIzaSyDysON6Twe-naM9LG-5xQ7fMXaRd3rXgss',
     libraries: 'places' // This is required if you use the Autocomplete plugin
     // OR: libraries: 'places,drawing'
     // OR: libraries: 'places,drawing,visualization'
@@ -46,7 +54,7 @@ Vue.use(VueGoogleMaps, {
 })
 
 // add cordova.js only if serving the app through file://
-if (window.location.protocol === 'file:' || window.location.port === '8000') {
+if (window.location.protocol === 'file:' || window.location.port === '3000') {
   var cordovaScript = document.createElement('script')
   cordovaScript.setAttribute('type', 'text/javascript')
   cordovaScript.setAttribute('src', 'cordova.js')
@@ -56,6 +64,7 @@ if (window.location.protocol === 'file:' || window.location.port === '8000') {
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  store,
   template: '<App/>',
   components: { App },
   data: function () {
@@ -66,7 +75,7 @@ new Vue({
   framework7: {
     root: '#app',
     /* Uncomment to enable Material theme: */
-    // material: true,
+    material: false,
     routes: Routes
   }
 })

@@ -33,7 +33,7 @@
       <f7-views>
       <f7-view id="main-view" navbar-through :dynamic-navbar="true" main>
         <!-- iOS Theme Navbar -->
-        <f7-navbar v-if="$theme.ios">
+        <f7-navbar id="ios-nav" v-if="$theme.ios">
            <f7-nav-left>
             <a :href="/form/" link-view="#main-view" link-close-panel><i class="f7-icons" >person</i></a>
           </f7-nav-left>
@@ -71,14 +71,15 @@
     </div>
          <app-map></app-map>
             </f7-block>
-            <f7-block-title> <f7-button fill open-login-screen="#login-screen" v-if="!loggedIn">LOGIN</f7-button><br>
-            <f7-button @click="takePicture" fill><i class="f7-icons .size25">camera_fill</i></f7-button></f7-block-title>
+            <f7-block-title id="controls"> <f7-button fill open-login-screen="#login-screen" v-show="!loggedIn">LOGIN</f7-button><br>
+            <f7-button @click="takePicture" fill v-show="loggedIn"><i class="f7-icons .size25">camera_fill</i></f7-button></f7-block-title>
             <f7-list>
               <f7-list-item link="/about/" title="About DarkSkies 7"></f7-list-item>
-              <f7-list-item link="/form/" title="Form"></f7-list-item>
+             </f7-list>
+            <!--  <f7-list-item link="/form/" title="Form"></f7-list-item>
               <f7-list-item link="/dynamic-route/blog/45/post/125/?foo=bar#about" title="Dynamic Route"></f7-list-item>
             </f7-list>
-            <!--<f7-block-title>Side Panels</f7-block-title>
+            <f7-block-title>Side Panels</f7-block-title>
             <f7-block>
               <f7-grid>
                 <f7-col width="50">
@@ -169,7 +170,7 @@ export default {
         return
       }
       Vue.cordova.camera.getPicture((imageURI) => {
-        window.alert('Photo URI : ' + imageURI + '' + this.getlocation())
+        window.alert('Photo URI : ' + imageURI + '' + this.location)
       }, (message) => {
         window.alert('FAILED : ' + message)
       }, {
@@ -291,6 +292,10 @@ body {
   padding: 0px 0px;
 }
 
+#ios-nav {
+ color: blue;
+}
+
 .logo {
   padding-bottom: 30px;
 }
@@ -315,6 +320,10 @@ f7-navbar {
 #map-container {
   z-index: 0;
   margin-top: 20px;
+}
+
+#controls {
+ margin: 0px 35px auto;
 }
 
 div.dump {

@@ -13,7 +13,7 @@
     :center="center"
     :disableDefaultUI="true"
     :zoom="6"
-    style="width: 100%; height: 500px; z-index: 0">
+    style="width: 100%; height: 550px; z-index: 0">
     <gmap-info-window
      :options="infoOptions"
      :position="infoWindowPos"
@@ -34,6 +34,7 @@
     <div slot="visible">
       <div style="bottom: 0; left: 0; right: 0; line-height: 50px; background-color: rgba(0,0,0, 0.5); color: white; position: absolute; z-index: 100; font-size: 20px">
         {{statusText}}
+        <f7-button @click='takePicture()' big fill>Click Me</f7-button>
       </div>
     </div>
 
@@ -46,6 +47,8 @@
 <script>
 import Vue from 'vue'
 export default {
+  components: {
+  },
   data () {
     return {
       center: {lat: 54.0, lng: -1.6},
@@ -57,6 +60,7 @@ export default {
       },
       infoWinOpen: false,
       currentMidx: null,
+      location: '',
       infoOptions: {
         pixelOffset: {
           width: 0,
@@ -69,6 +73,9 @@ export default {
     markers () {
       return this.$store.getters.loadedMarkers
     }
+  },
+  mounted () {
+    // this.getLocation()
   },
   methods: {
     getLocation: function () {
@@ -84,6 +91,20 @@ export default {
       }, {
         timeout: 1000,
         enableHighAccuracy: true
+      })
+    },
+    takePicture: function () {
+      if (!Vue.cordova.camera) {
+        window.alert('Vue.cordova.camera not found !')
+        return
+      }
+      Vue.cordova.camera.getPicture((imageURI) => {
+        window.alert('Photo URI : ' + imageURI + '' + this.location)
+      }, (message) => {
+        window.alert('FAILED : ' + message)
+      }, {
+        quality: 50,
+        destinationType: Vue.cordova.camera.DestinationType.FILE_URI
       })
     },
     toggleInfoWindow: function (marker, idx) {

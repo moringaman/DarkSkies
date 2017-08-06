@@ -30,7 +30,7 @@
     </f7-panel>
 
     <!-- Main Views -->
-      <f7-views>
+      <f7-views >
       <f7-view id="main-view" navbar-through :dynamic-navbar="true" main>
         <!-- iOS Theme Navbar -->
         <f7-navbar id="ios-nav" v-if="$theme.ios">
@@ -59,7 +59,7 @@
            <!-- <f7-block-title>UK Chemtrail Map</f7-block-title>
             <f7-content-block><p>Real time chemtrail recording from the grass roots.
                Take a picture of the chemtrails above your location for all to see where 'they' are spraying today </p></f7-content-block> -->
-            <f7-block id="map-container">
+            <!--<f7-block  id="map-container"> -->
               <div v-if="!cordova" class="alert">
       There might be an error with your installation. Check that <strong>Vue.cordova</strong> is available
     </div>
@@ -70,13 +70,11 @@
       Check the <a href="https://github.com/kartsims/vue-cordova#troubleshooting">Troubleshooting section</a> of vue-cordova's README.
     </div>
          <app-map></app-map>
-            </f7-block>
-            <f7-block-title id="controls"> <f7-button fill open-login-screen="#login-screen" v-show="!loggedIn">LOGIN</f7-button><br>
-            <f7-button @click="takePicture" fill v-show="loggedIn"><i class="f7-icons .size25">camera_fill</i></f7-button></f7-block-title>
-            <f7-list>
+           <!-- </f7-block> -->
+          <!--  <f7-list>
               <f7-list-item link="/about/" title="About DarkSkies 7"></f7-list-item>
              </f7-list>
-            <!--  <f7-list-item link="/form/" title="Form"></f7-list-item>
+              <f7-list-item link="/form/" title="Form"></f7-list-item>
               <f7-list-item link="/dynamic-route/blog/45/post/125/?foo=bar#about" title="Dynamic Route"></f7-list-item>
             </f7-list>
             <f7-block-title>Side Panels</f7-block-title>
@@ -103,6 +101,32 @@
             </f7-block> -->
           </f7-page>
         </f7-pages>
+      </f7-view>  
+    </f7-views>
+
+   <f7-views v-if="loggedIn">
+    <f7-view >
+        <f7-pages>
+          <f7-page login-screen>
+            <f7-login-screen-title>Login</f7-login-screen-title>
+            <f7-list form>
+              <f7-list-item>
+                <f7-label>Username</f7-label>
+                <f7-input name="username" placeholder="Username" type="text"></f7-input>
+              </f7-list-item>
+              <f7-list-item>
+                <f7-label>Password</f7-label>
+                <f7-input name="password" type="password" placeholder="Password"></f7-input>
+              </f7-list-item>
+            </f7-list>
+            <f7-list>
+              <f7-list-button title="Sign In" @click="loggedIn=true"></f7-list-button>
+              <f7-list-label>
+                <p>Click Sign In to close Login Screen</p>
+              </f7-list-label>
+            </f7-list>
+          </f7-page>
+        </f7-pages>
       </f7-view>
     </f7-views>
 
@@ -123,7 +147,7 @@
               </f7-list-item>
             </f7-list>
             <f7-list>
-              <f7-list-button title="Sign In" close-login-screen></f7-list-button>
+              <f7-list-button title="Sign In" @click="loggedIn=true" close-login-screen></f7-list-button>
               <f7-list-label>
                 <p>Click Sign In to close Login Screen</p>
               </f7-list-label>
@@ -161,6 +185,9 @@ export default {
     appMap: Map
   },
   methods: {
+    onF7Init: function () {
+      this.$f7.mainView.router.load({url: '/login/'})
+    },
     pluginEnabled: function (pluginName) {
       return this.cordova.plugins.indexOf(pluginName) !== -1
     },
@@ -196,7 +223,7 @@ export default {
   data: function () {
     return {
       cordova: Vue.cordova,
-      loggedIn: true,
+      loggedIn: false,
       plugins: {
         'cordova-plugin-camera': function () {
           if (!Vue.cordova.camera) {

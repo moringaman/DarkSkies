@@ -1,25 +1,25 @@
 <template>
   <f7-page>
-    <f7-navbar title="Form" back-link="Back" sliding></f7-navbar>
-    <f7-block-title>Form</f7-block-title>
+    <f7-navbar title="Preferences" back-link="Back" sliding></f7-navbar>
+    <f7-block-title>Your Settings</f7-block-title>
     <f7-list form>
       <f7-list-item>
         <f7-label>Name</f7-label>
         <f7-input type="text" placeholder="Name"></f7-input>
       </f7-list-item>
-      <f7-list-item>
+     <!-- <f7-list-item>
         <f7-label>Password</f7-label>
         <f7-input type="password" placeholder="Password"></f7-input>
-      </f7-list-item>
+      </f7-list-item> -->
       <f7-list-item>
         <f7-label>E-mail</f7-label>
         <f7-input type="email" placeholder="E-mail"></f7-input>
       </f7-list-item>
       <f7-list-item>
-        <f7-label>URL</f7-label>
+        <f7-label>Website</f7-label>
         <f7-input type="url" placeholder="URL"></f7-input>
       </f7-list-item>
-      <f7-list-item>
+     <!-- <f7-list-item>
         <f7-label>Phone</f7-label>
         <f7-input type="tel" placeholder="Phone"></f7-input>
       </f7-list-item>
@@ -37,22 +37,22 @@
           <option value="1">Male</option>
           <option value="1">Female</option>
         </f7-input>
-      </f7-list-item>
+      </f7-list-item> -->
       <f7-list-item>
-        <f7-label>Switch</f7-label>
+        <f7-label>Alerts?</f7-label>
         <f7-input type="switch"></f7-input>
       </f7-list-item>
-      <f7-list-item>
-        <f7-label>Range</f7-label>
+      <!-- <f7-list-item>
+       <f7-label>Range</f7-label>
         <f7-input type="range" min="0" max="100" step="1" value="90"></f7-input>
-      </f7-list-item>
+      </f7-list-item> -->
       <f7-list-item>
-        <f7-label>Textarea</f7-label>
-        <f7-input type="textarea" placeholder="Textarea"></f7-input>
+        <f7-label>About You</f7-label>
+        <f7-input type="textarea" placeholder="Tell us about yourself"></f7-input>
       </f7-list-item>
     </f7-list>
 
-    <f7-block-title>Form With Floating Labels</f7-block-title>
+   <!-- <f7-block-title>Form With Floating Labels</f7-block-title>
     <f7-list form>
       <f7-list-item>
         <f7-label floating>Name</f7-label>
@@ -126,7 +126,7 @@
           <f7-col><f7-list-button title="Close" back></f7-list-button></f7-col>
         </f7-grid>
       </p>
-    </f7-block>
+    </f7-block> -->
   </f7-page>
 </template>
 

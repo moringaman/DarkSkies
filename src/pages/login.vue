@@ -11,10 +11,15 @@
                 <f7-label>Password</f7-label>
                 <f7-input name="password" type="password" placeholder=""></f7-input>
               </f7-list-item>
+              <f7-list-item>
+               <!-- <f7-label>Password</f7-label>
+                <f7-input name="password" type="password" placeholder=""></f7-input> -->
+              </f7-list-item>
             </f7-list>
             <div class="buttons">
             <button class="button theme-white" title="Sign In" @click="login" close-login-screen>Sign In</button>
             <button class="button theme-white" title="Sign Up" @click="signUp" close-login-screen>Sign Up</button>
+            <p>Forgot your password? click here.</p>
             </div>
             </div>
           </f7-page>
@@ -34,37 +39,42 @@ export default {
 <style scoped>
 
 .background {
-    background-image: url('../assets/skygaze.jpg');
+    background-image: url('/static/skygaze.jpg');
      background-size: 120%;
     margin-top: -25px;
-    margin-top: -25px;
+    margin-bottom: -25px;
     height: 100%;
     color: white;
-    
+    padding: 0px 40px;
 }
 
 .title {
-    padding-top: 50px;
+    padding-top: 100px;
 }
 
 .button {
     padding: 0px 20px;
     height: 40px;
-    background-color: rgba(0,0,0,0.3);
-    width: 60%;
-    margin: auto;
+    background-color: rgba(250,250,250,0.5);
+    width: 100%;
+    margin: 10px auto;
     margin-top: 10px;
-    color: #fff;
+    color: cornflowerblue;
     border: 0px;
     border-radius: 0px;
 }
 
 .button:first-child {
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 .button:nth-child(2) {
     margin-top: 15px;
+    margin-bottom: 20px;
+    background-color: rgba(250,250,250,0.0);
+    border: 1px solid #fff;
+    color: #fff;
+
 }
 
 

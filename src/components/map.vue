@@ -13,7 +13,7 @@
     :center="center"
     :disableDefaultUI="true"
     :zoom="6"
-    style="width: 100%; height: 550px; z-index: 0">
+    style="width: 100%; height: 500px; z-index: 0">
     <gmap-info-window
      :options="infoOptions"
      :position="infoWindowPos"

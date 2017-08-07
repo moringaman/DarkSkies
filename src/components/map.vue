@@ -1,14 +1,5 @@
 <template>
 <div>
- <!-- Blue with custom size -->
-<!--<f7-preloader color="blue" size="44px"></f7-preloader>-->
-   <!-- <gmap-map
-        :center="{lat:53, lng:-1.4}"
-        :zoom="6"
-        map-type-id="terrain"
-        disableDefaultUI="true"
-        style="width: 100%; height: 600px; z-index: 0">
-    </gmap-map> -->
     <gmap-map
     :center="center"
     :disableDefaultUI="true"

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 import { store } from './store'
+import * as firebase from 'firebase'
 
 // GoogleMaps
 
@@ -67,6 +68,15 @@ new Vue({
   store,
   template: '<App/>',
   components: { App },
+  created () {
+    firebase.initializeApp({
+      apiKey: 'AIzaSyDhgmconnYqzLQw0v4dnagAuPkJ_nOuj1o',
+      authDomain: 'dks7-4054d.firebaseapp.com',
+      databaseURL: 'https://dks7-4054d.firebaseio.com',
+      projectId: 'dks7-4054d',
+      storageBucket: ''
+    })
+  },
   data: function () {
     return {
       cordova: Vue.cordova
